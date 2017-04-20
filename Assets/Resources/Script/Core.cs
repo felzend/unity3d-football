@@ -25,8 +25,7 @@ public class Core : MonoBehaviour {
         Socket.On("entered_room", EnteredRoom);
         Socket.On("exit_room", ExitedRoom);
         Socket.On("start", Start);
-        Socket.On("end", End);
-        Socket.On("spawn", Spawn);
+        Socket.On("end", End);        
         Socket.On("respawn", Respawn);
         Socket.On("room_data", RefreshRoom);
         Socket.On("remove_object", RemoveObject);
@@ -64,7 +63,7 @@ public class Core : MonoBehaviour {
     {
         JSONObject Json = e.data.GetField("json");
 
-        foreach(JSONObject JO in Json.list)
+		foreach(JSONObject JO in Json.list)
         {
             string ObjName = JO.GetField("name").str;
             Vector3 Position = new Vector3(
@@ -84,10 +83,9 @@ public class Core : MonoBehaviour {
             );
 
             GameObject Obj = GameObject.Find(ObjName);        
-            if( Obj == null )
-            {
-                Obj = Instantiate(Resources.Load(JO.GetField("model").str)) as GameObject;
-            }
+			if (Obj == null) {
+				Obj = Instantiate (Resources.Load (JO.GetField ("model").str)) as GameObject;
+			}
 
             Obj.name = ObjName;
             Obj.tag = DefaultTag;
@@ -99,9 +97,8 @@ public class Core : MonoBehaviour {
 
     void Awake()
     {
+		Application.runInBackground = true;
         DontDestroyOnLoad(transform.gameObject);
-        UpdateThread = new Thread(GameUpdate);
-        UpdateThread.Start();
     }
 
     void OnApplicationQuit()
@@ -129,13 +126,11 @@ public class Core : MonoBehaviour {
         {
             case -1: Debug.Log("Requested Room does not exists. Returning to the Lobby."); return;
             case 0: Debug.Log("Request Room is full. Returning to the Lobby."); return;
-        }       
+        }
 
         this.Room = Room;
-        //this.RoomThread = new Thread(RoomUpdate);        
-        //this.RoomThread.Start();
-
-        StartCoroutine(RequestSpawn());
+		UpdateThread = new Thread(GameUpdate);
+		UpdateThread.Start();
 
         Debug.Log("Entered Room " + Room);
      }
@@ -166,17 +161,7 @@ public class Core : MonoBehaviour {
     protected void End(SocketIOEvent e)
     {
         Debug.Log("The match is over on Room "+this.Room);
-    }
-
-    IEnumerator RequestSpawn()
-    {
-        yield return new WaitForSeconds(1f);
-        Dictionary<string, string> D = new Dictionary<string, string>();
-        D.Add("player", this.PlayerId.ToString());
-        D.Add("room", this.Room.ToString());
-
-        Socket.Emit("spawn", new JSONObject(D));
-    }
+    }    
 
     protected void RemoveObject(SocketIOEvent e)
     {
@@ -185,41 +170,7 @@ public class Core : MonoBehaviour {
         {
             GameObject.DestroyImmediate(Obj);
         }
-    }
-
-    protected void Spawn(SocketIOEvent e)
-    {
-        JSONObject Json = e.data.GetField("json");
-
-        foreach (JSONObject Obj in Json.list)
-        {
-            Vector3 Position = new Vector3(
-                Obj.GetField("defaults").GetField("position").GetField("x").f,
-                Obj.GetField("defaults").GetField("position").GetField("y").f,
-                Obj.GetField("defaults").GetField("position").GetField("z").f
-            );
-            Vector3 Rotation = new Vector3(
-                Obj.GetField("defaults").GetField("rotation").GetField("x").f,
-                Obj.GetField("defaults").GetField("rotation").GetField("y").f,
-                Obj.GetField("defaults").GetField("rotation").GetField("z").f
-            );
-            Vector3 Scale = new Vector3(
-                Obj.GetField("defaults").GetField("scale").GetField("x").f,
-                Obj.GetField("defaults").GetField("scale").GetField("y").f,
-                Obj.GetField("defaults").GetField("scale").GetField("z").f
-            );
-
-            GameObject G = Instantiate(Resources.Load(Obj.GetField("model").str)) as GameObject;
-            G.tag = this.DefaultTag;
-            G.name = Obj.GetField("name").str;
-            G.transform.position = Position;
-            G.transform.localRotation = Quaternion.Euler(Rotation.x, Rotation.y, Rotation.z);
-            G.transform.localScale = Scale;            
-        }
-
-        UpdateThread = new Thread(GameUpdate);
-        UpdateThread.Start();
-    }
+    }   
 
     protected void Respawn(SocketIOEvent e)
     {

@@ -8,10 +8,11 @@ var rooms = new Array();
 
 io.on('connection', function(socket) {
 
+    // Generate the new player    
     socket.playerId = generatePlayerId();
     players.push({ id: socket.playerId, name: "Player_"+socket.playerId, socket: socket, room: null });
-    console.log("New Connection. " + players.length + " online players.");
 
+    console.log("New Connection. " + players.length + " online players.");
     socket.on('request_id', function (data) {
         socket.emit('retrieve_id', { id: socket.playerId });
     });
@@ -28,9 +29,7 @@ io.on('connection', function(socket) {
             }
         }
 
-        //json.push(room.ball);
-
-        console.log(json);
+        json.push(room.ball);
 
         socket.emit('room_data', { json: json });
     });
@@ -76,6 +75,19 @@ http.listen(port, function (err) {
 
     // Temporário até criar multiplas salas.
 
+    {
+        id:
+        running:
+        created:
+        gameTime:
+        capacity: 2,
+        players: {
+            id:
+            name:
+            model: @;6
+        }
+    }
+
     rooms.push({        
         id: 25,
         running: false,
@@ -89,6 +101,7 @@ http.listen(port, function (err) {
                 name: "",
                 score: 0,
                 model: "Blue_Character/blue_character",
+                components: ['Character'],
                 spawned: false,
                 visible: true,
                 position: {},
@@ -117,6 +130,7 @@ http.listen(port, function (err) {
                 name: "",
                 score: 0,
                 model: "Orange_Character/orange_character",
+                components: ['Character'],
                 spawned: false,
                 visible: true,
                 position: {},
@@ -145,6 +159,7 @@ http.listen(port, function (err) {
             name: "Ball",
             visible: true,
             model: "Ball/ball",
+            components: ['Ball'],
             position: {},
             rotation: {},
             scale: {},
@@ -277,12 +292,28 @@ function generatePlayerId()
     return gid;
 }
 
+function generateRoom()
+{
+    var gid = random.integer(1, 10000);
+
+    for (let a = 0; a < rooms.length; a++)
+    {
+        if (rooms[a].id === gid)
+        {
+            gid = random.integer(1, 10000);
+            a = 0;
+        }
+    }
+
+    return gid;
+}
+
 function disconnectPlayer(id)
 {
     for(let a = 0; a < players.length; a++)
     {        
         if (players[a].id === id) {
-            io.emit('remove_object', players[a].name);
+            io.emit('remove_object', {name: players[a].name});
             players.splice(a, 1);
         }
     }
