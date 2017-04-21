@@ -15,22 +15,77 @@ public class Core : MonoBehaviour {
 
     public List<GameObject> Entities = new List<GameObject>();
         
-    private Thread UpdateThread;
+    private Thread GameThread;
     private Thread WFSThread;
     
     void Start ()
     {
         Socket = GameObject.Find("SocketIO").GetComponent<SocketIOComponent>();
-        Socket.On("retrieve_id", RetrieveId);
-        Socket.On("entered_room", EnteredRoom);
-        Socket.On("exit_room", ExitedRoom);
+        Socket.On("player_id", RetrievePlayerId);
+        Socket.On("room_data", RefreshGame);
+        Socket.On("enter_room", EnterRoom);
+        Socket.On("exit_room", ExitRoom);
+
+        Socket.On("delete", DeleteHandler);
+        Socket.On("message", MessageHandler);
+        /*Socket.On("exit_room", ExitedRoom);
         Socket.On("start", Start);
         Socket.On("end", End);        
         Socket.On("respawn", Respawn);
         Socket.On("room_data", RefreshRoom);
-        Socket.On("remove_object", RemoveObject);
+        Socket.On("remove_object", RemoveObject);*/
 
-        StartCoroutine(SocketHandler());        
+        StartCoroutine(Connect());
+    }
+
+    IEnumerator Connect()
+    {
+        Dictionary<string, string> Data = new Dictionary<string, string>();
+        Data.Add("room", "25");
+        yield return new WaitForSeconds(0.1f);
+
+        GameThread = new Thread(Game_Thread);
+        GameThread.Start();
+
+        Socket.Emit("player_id");
+        yield return new WaitForSeconds(0.3f);
+        Socket.Emit("enter_room", new JSONObject(Data));
+    }
+
+    protected void RetrievePlayerId(SocketIOEvent e)
+    {
+        JSONObject Json = e.data;
+        this.PlayerId = (int)Json.GetField("player_id").f;
+    }
+
+    protected void EnterRoom(SocketIOEvent e)
+    {
+        JSONObject Json = e.data;
+        int Room = (int)e.data["room_id"].f;
+        this.Room = Room;
+
+        Debug.Log("Entered Room " + Room);
+    }
+
+    protected void ExitRoom(SocketIOEvent e)
+    {
+        this.PlayerId = -1;
+        this.Room = -1;
+    }
+
+    protected void MessageHandler(SocketIOEvent e)
+    {
+        JSONObject Json = e.data;
+        Debug.Log(Json.GetField("message").str);
+    }
+    
+    protected void DeleteHandler(SocketIOEvent e)
+    {
+        GameObject Object = GameObject.Find(e.data.GetField("object").str);
+        if ( Object != null)
+        {
+            GameObject.DestroyImmediate(Object);
+        }
     }
 
     IEnumerator SocketHandler()
@@ -44,66 +99,66 @@ public class Core : MonoBehaviour {
         Socket.Emit("enter_room", new JSONObject(Room));
     }
 
-    private void GameUpdate()
+    protected void Game_Thread()
     {
         while (true)
         {
             Thread.Sleep(100);
-            if( Room != 0 )
+
+            if (PlayerId > 0 && Room > 0 )
             {
                 Dictionary<string, string> Data = new Dictionary<string, string>();
                 Data.Add("room", this.Room.ToString());
-
-                Socket.Emit("room_data", new JSONObject(Data));
+                Socket.Emit("room_data", new JSONObject(Data));                
             }
         }
     }
-    
-    protected void RefreshRoom(SocketIOEvent e)
-    {
-        JSONObject Json = e.data.GetField("json");
 
-		foreach(JSONObject JO in Json.list)
+    protected void RefreshGame(SocketIOEvent e)
+    {
+        JSONObject Json = e.data.GetField("data");
+
+        foreach(JSONObject Obj in Json.GetField("entities").list )
         {
-            string ObjName = JO.GetField("name").str;
+            GameObject Object = GameObject.Find(Obj.GetField("name").str);
+            if( Object == null)
+            {
+                Object = Instantiate(Resources.Load(Obj.GetField("model").str)) as GameObject;
+                Object.name = Obj.GetField("name").str;
+                Object.tag = DefaultTag;
+            }
+
             Vector3 Position = new Vector3(
-                   JO.GetField("defaults").GetField("position").GetField("x").f,
-                   JO.GetField("defaults").GetField("position").GetField("y").f,
-                   JO.GetField("defaults").GetField("position").GetField("z").f
+                Obj.GetField("position").GetField("x").f,
+                Obj.GetField("position").GetField("y").f,
+                Obj.GetField("position").GetField("z").f
             );
             Vector3 Rotation = new Vector3(
-                JO.GetField("defaults").GetField("rotation").GetField("x").f,
-                JO.GetField("defaults").GetField("rotation").GetField("y").f,
-                JO.GetField("defaults").GetField("rotation").GetField("z").f
+                Obj.GetField("rotation").GetField("x").f,
+                Obj.GetField("rotation").GetField("y").f,
+                Obj.GetField("rotation").GetField("z").f
             );
             Vector3 Scale = new Vector3(
-                JO.GetField("defaults").GetField("scale").GetField("x").f,
-                JO.GetField("defaults").GetField("scale").GetField("y").f,
-                JO.GetField("defaults").GetField("scale").GetField("z").f
+                Obj.GetField("scale").GetField("x").f,
+                Obj.GetField("scale").GetField("y").f,
+                Obj.GetField("scale").GetField("z").f
             );
 
-            GameObject Obj = GameObject.Find(ObjName);        
-			if (Obj == null) {
-				Obj = Instantiate (Resources.Load (JO.GetField ("model").str)) as GameObject;
-			}
-
-            Obj.name = ObjName;
-            Obj.tag = DefaultTag;
-            Obj.transform.position = Position;
-            Obj.transform.localRotation = Quaternion.Euler(Rotation.x, Rotation.y, Rotation.z);
-            Obj.transform.localScale = Scale;
+            Object.transform.position = Position;
+            Object.transform.localRotation = Quaternion.Euler(Rotation.x, Rotation.y, Rotation.z);
+            Object.transform.localScale = Scale;
         }
-    }
+    }    
 
     void Awake()
     {
 		Application.runInBackground = true;
-        DontDestroyOnLoad(transform.gameObject);
+        DontDestroyOnLoad(transform.gameObject);       
     }
 
     void OnApplicationQuit()
     {
-        if(this.UpdateThread != null && this.UpdateThread.IsAlive) this.UpdateThread.Abort();
+        this.GameThread.Abort();
     }
 
     // Update is called once per frame
@@ -115,30 +170,7 @@ public class Core : MonoBehaviour {
     protected void RetrieveId(SocketIOEvent e)
     {
         this.PlayerId = (int)e.data["id"].f;
-    }
-
-    protected void EnteredRoom(SocketIOEvent e)
-    {
-        JSONObject Json = e.data;
-        int Room = (int)e.data["id"].f;
-
-        switch(Room)
-        {
-            case -1: Debug.Log("Requested Room does not exists. Returning to the Lobby."); return;
-            case 0: Debug.Log("Request Room is full. Returning to the Lobby."); return;
-        }
-
-        this.Room = Room;
-		UpdateThread = new Thread(GameUpdate);
-		UpdateThread.Start();
-
-        Debug.Log("Entered Room " + Room);
-     }
-
-    protected void ExitedRoom(SocketIOEvent e)
-    {
-        this.UpdateThread.Abort();
-    }
+    }    
     
     protected void WaitForStart()
     {

@@ -17,7 +17,7 @@ Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\Un
 Loading C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
 Loading C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
-- Completed reload, in  0.052 seconds
+- Completed reload, in  0.051 seconds
 Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\System.dll (this message is harmless)
 Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\Mono.Security.dll (this message is harmless)
@@ -25,55 +25,22 @@ desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.701939 ms
+UnloadTime: 1.240387 ms
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 2758 -> priority: 1 
-4/19/2017 8:57:54 PM|Error|WebSocket.Send|A WebSocket connection isn't established.
-Starting match in 5
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
+  Thread -> id: 269c -> priority: 1 
 Entered Room 25
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Starting match in 4
+6459 has connected to your room (25) - (2/2)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Starting match in 3
+9276 has disconnected from your room (25) - (1/2)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Starting match in 2
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-The match is over on Room 25
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Starting match in 1
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Starting match in 5
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Starting match in 4
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Starting match in 3
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Starting match in 2
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Starting match in 1
+4862 has connected to your room (25) - (2/2)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
