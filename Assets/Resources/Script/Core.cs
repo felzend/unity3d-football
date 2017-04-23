@@ -121,79 +121,90 @@ public class Core : MonoBehaviour {
         foreach(JSONObject Obj in Json.GetField("entities").list )
         {
             GameObject Object = GameObject.Find(Obj.GetField("name").str);
-            if( Object == null)
+            int Id = (int)Obj.GetField("id").f;
+
+            if (Object == null)
             {
                 Object = Instantiate(Resources.Load(Obj.GetField("model").str)) as GameObject;
                 Object.name = Obj.GetField("name").str;
-                Object.tag = DefaultTag;
-                
-                switch(Obj.GetField("type").str)
+                Object.tag = DefaultTag;                
+
+                switch (Obj.GetField("type").str)
                 {
                     case "ball":
-                    {
+                        {
                             Object.AddComponent<Rigidbody>();
                             Object.AddComponent<BoxCollider>();
 
-                            Object.transform.position = new Vector3(20, 50, 0);
-                            Object.transform.rotation = Quaternion.Euler(0, 90, 0);
-                            Object.GetComponent<Rigidbody>().MovePosition(Object.transform.position * Time.deltaTime);
-
                             Object.GetComponent<Rigidbody>().mass = 60;
                             break;
-                    }
+                        }
                     case "character":
-                    {
+                        {
                             Object.AddComponent<Rigidbody>();
                             Object.AddComponent<BoxCollider>();
 
                             Object.GetComponent<Rigidbody>().mass = 100;
+                            Object.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationY;
                             break;
-                    }
+                        }
                 }
 
-                if (Object.name == this.PlayerName)
+                if ( Id == PlayerId ) // Caso seja o personagem do Client, adiciona Script de Character.
                 {
                     GameObject.Find(PlayerName).AddComponent<Character>();
                     GameObject.Find(PlayerName).GetComponent<Character>().Socket = this.Socket;
                 }
+
+                // Spawn Point.
+                Vector3 SPosition = new Vector3(
+                    Obj.GetField("position").GetField("x").f,
+                    Obj.GetField("position").GetField("y").f,
+                    Obj.GetField("position").GetField("z").f
+                );
+                Vector3 SRotation = new Vector3(
+                    Obj.GetField("rotation").GetField("x").f,
+                    Obj.GetField("rotation").GetField("y").f,
+                    Obj.GetField("rotation").GetField("z").f
+                );
+                Vector3 SScale = new Vector3(
+                    Obj.GetField("scale").GetField("x").f,
+                    Obj.GetField("scale").GetField("y").f,
+                    Obj.GetField("scale").GetField("z").f
+                );
+
+                Object.transform.position = SPosition;
+                Object.transform.rotation = Quaternion.Euler(SRotation.x, SRotation.y, SRotation.z);
+                Object.transform.localScale = SScale;
+
+                Debug.Log(Object.transform.rotation.eulerAngles);
             }
 
-            Vector3 Position = new Vector3(
-                Obj.GetField("position").GetField("x").f,
-                Obj.GetField("position").GetField("y").f,
-                Obj.GetField("position").GetField("z").f
-            );            
-            Vector3 Rotation = new Vector3(
-                Obj.GetField("rotation").GetField("x").f,
-                Obj.GetField("rotation").GetField("y").f,
-                Obj.GetField("rotation").GetField("z").f
-            );
-            Vector3 Scale = new Vector3(
-                Obj.GetField("scale").GetField("x").f,
-                Obj.GetField("scale").GetField("y").f,
-                Obj.GetField("scale").GetField("z").f
-            );
-
-            //Object.transform.position = Position;
-
-            //Object.GetComponent<Rigidbody>().MovePosition(Object.transform.position * Time.deltaTime);
-            //Object.transform.position = Object.GetComponent<Rigidbody>().position;
-            //Object.GetComponent<Rigidbody>().MoveRotation(Quaternion.Euler(Rotation.x, Rotation.y, Rotation.z));
-            //Object.transform.position = Position;
-            //Object.transform.rotation = Quaternion.Euler(Rotation.x, Rotation.y, Rotation.z);
-            Object.transform.localScale = Scale;
-
-            if( Object.GetComponent<Character>() != null)
+            if (Id != PlayerId)
             {
-                Dictionary<string, System.Object> CameraData = new Dictionary<string, System.Object>();
-                CameraData.Add("position", Position);
-                CameraData.Add("rotation", Rotation);
-                CameraData.Add("scale", Scale);
+                Vector3 Position = new Vector3(
+                    Obj.GetField("position").GetField("x").f,
+                    Obj.GetField("position").GetField("y").f,
+                    Obj.GetField("position").GetField("z").f
+                );
+                Vector3 Rotation = new Vector3(
+                    Obj.GetField("rotation").GetField("x").f,
+                    Obj.GetField("rotation").GetField("y").f,
+                    Obj.GetField("rotation").GetField("z").f
+                );
+                Vector3 Scale = new Vector3(
+                    Obj.GetField("scale").GetField("x").f,
+                    Obj.GetField("scale").GetField("y").f,
+                    Obj.GetField("scale").GetField("z").f
+                );
 
-                Object.GetComponent<Character>().CameraData = CameraData;                
+                Object.transform.position = Position;
+                Object.transform.rotation = Quaternion.Euler(Rotation.x, Rotation.y, Rotation.z);
+                Object.transform.localScale = Scale;
             }
         }
     }    
+
 
     void Awake()
     {

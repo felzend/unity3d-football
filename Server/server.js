@@ -79,14 +79,14 @@ io.on('connection', function (socket) {
     socket.emit('player_id', { player_id: player.id, player_name: player.name });
 
     socket.on('room_data', function (data) {
-        var room = getRoom(parseInt(data.room));        
+        var room = getRoom(parseInt(data.room));
         if (room == null) return;
 
         var roomData = { id: room.id, entities: [], gameTime: room.gameTime };
 
         for (let a = 0; a < room.players.length; a++)
         {
-            var player = room.players[a];            
+            var player = room.players[a];
             roomData.entities.push({
                 id: player.id,
                 name: player.name,
@@ -105,6 +105,26 @@ io.on('connection', function (socket) {
 
         this.emit('room_data', { data: roomData });
     });
+
+    socket.on('update_player', function (data) {
+        var player = getPlayerFromRoom( parseInt(data.player), parseInt(data.room) );
+        if (player == null) return;
+
+        var position = {
+            x: parseFloat(data.pos_x),
+            y: parseFloat(data.pos_y),
+            z: parseFloat(data.pos_z)
+        };
+
+        var rotation = {
+            x: parseFloat(data.rot_x),
+            y: parseFloat(data.rot_y),
+            z: parseFloat(data.rot_z)
+        }
+
+        player.position = position;
+        player.rotation = rotation;
+    })
 
     socket.on('move_player', function (data) {
         var player = getPlayerFromRoom( parseInt(data.player), parseInt(data.room) );
@@ -187,15 +207,15 @@ var generatePlayer = function () {
         socket: null,
         type: 'character',
         standard: null,
-        position: { x: 0, y: 0, z: 0 },
-        rotation: { x: 0, y: 2, z: 0 },
+        position: { x: 0, y: 2, z: 0 },
+        rotation: { x: 0, y: 0, z: 0 },
         scale: { x: 1, y: 1, z: 1 },
         
         defaults: {
             0: {
                 position: {
                     x: 20,
-                    y: 12,
+                    y: 5,
                     z: 0,
                 },
                 rotation: {
@@ -212,7 +232,7 @@ var generatePlayer = function () {
             1: {
                 position: {
                     x: -20,
-                    y: 12,
+                    y: 5,
                     z: 0,
                 },
                 rotation: {

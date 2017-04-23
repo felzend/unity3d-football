@@ -17,7 +17,33 @@ Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\Un
 Loading C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
 Loading C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
-- Completed reload, in  0.062 seconds
+- Completed reload, in  0.034 seconds
+Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\System.dll (this message is harmless)
+Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\Mono.Security.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+Initialize engine version: 5.5.2f1 (3829d7f588f3)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 650 (ID=0xfc6)
+    Vendor:   NVIDIA
+    VRAM:     994 MB
+    Driver:   21.21.13.7653
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+- Completed reload, in  0.031 seconds
 Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\System.dll (this message is harmless)
 Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\Mono.Security.dll (this message is harmless)
@@ -25,23 +51,52 @@ desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.418381 ms
+UnloadTime: 1.808091 ms
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 370 -> priority: 1 
-4/22/2017 9:22:37 PM|Error|WebSocket.Send|A WebSocket connection isn't established.
+  Thread -> id: 2f18 -> priority: 1 
+<RI> Initialized touch support.
+4/23/2017 3:20:12 AM|Error|WebSocket.Send|A WebSocket connection isn't established.
 Entered Room 25
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-9742 has connected to your room (25) - (1/2)
+1802 has connected to your room (25) - (1/2)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-4488 has connected to your room (25) - (2/2)
+(0.0, 90.0, 0.0)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-4488 has disconnected from your room (25) - (1/2)
+UnloadTime: 1.263845 ms
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 3368 -> priority: 1 
+4/23/2017 3:20:16 AM|Error|WebSocket.Send|A WebSocket connection isn't established.
+5293 has connected to your room (25) - (2/2)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Entered Room 25
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/De(ugBindin 270.0n, 0p0 
+ in
+e:i ename
+:
+ C:/buildslave/unity2b93 d/asr connettedgeto rated roommm2n/ru- t2me/D
+ 
+(Filedaiengs:/gen.cpslavp/unite: 51i
+
+d/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 90.0, 0.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 270.0, 0.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+5293 has disconnected from your room (25) - (1/2)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
