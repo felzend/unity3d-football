@@ -15,6 +15,9 @@ ModelImporter:
     100014: Sun
     100016: Sun.001
     100018: Sun.002
+    100020: Body
+    100022: Head
+    100024: Legs
     400000: Camera
     400002: Cube
     400004: Cube.001
@@ -25,18 +28,30 @@ ModelImporter:
     400014: Sun
     400016: Sun.001
     400018: Sun.002
+    400020: Body
+    400022: Head
+    400024: Legs
     2300000: Cube
     2300002: Cube.001
     2300004: Cube.002
     2300006: Cube.003
+    2300008: Body
+    2300010: Head
+    2300012: Legs
     3300000: Cube
     3300002: Cube.001
     3300004: Cube.002
     3300006: Cube.003
+    3300008: Body
+    3300010: Head
+    3300012: Legs
     4300000: Cube.003
     4300002: Cube.002
     4300004: Cube.001
     4300006: Cube
+    4300008: Head
+    4300010: Body
+    4300012: Legs
   materials:
     importMaterials: 1
     materialName: 0

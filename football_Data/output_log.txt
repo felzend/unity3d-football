@@ -17,7 +17,7 @@ Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\Un
 Loading C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
 Loading C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
-- Completed reload, in  0.051 seconds
+- Completed reload, in  0.062 seconds
 Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\System.dll (this message is harmless)
 Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\Mono.Security.dll (this message is harmless)
@@ -25,22 +25,23 @@ desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.240387 ms
+UnloadTime: 1.418381 ms
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 269c -> priority: 1 
+  Thread -> id: 370 -> priority: 1 
+4/22/2017 9:22:37 PM|Error|WebSocket.Send|A WebSocket connection isn't established.
 Entered Room 25
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-6459 has connected to your room (25) - (2/2)
+9742 has connected to your room (25) - (1/2)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-9276 has disconnected from your room (25) - (1/2)
+4488 has connected to your room (25) - (2/2)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-4862 has connected to your room (25) - (2/2)
+4488 has disconnected from your room (25) - (1/2)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 

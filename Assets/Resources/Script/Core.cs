@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Core : MonoBehaviour {
 
-    public SocketIOComponent Socket;
+    public SocketIOComponent Socket;    
     public int PlayerId;
     public string PlayerName;    
     public int Room = 0;
@@ -16,7 +16,6 @@ public class Core : MonoBehaviour {
     public List<GameObject> Entities = new List<GameObject>();
         
     private Thread GameThread;
-    private Thread WFSThread;
     
     void Start ()
     {
@@ -56,6 +55,7 @@ public class Core : MonoBehaviour {
     {
         JSONObject Json = e.data;
         this.PlayerId = (int)Json.GetField("player_id").f;
+        this.PlayerName = Json.GetField("player_name").str;        
     }
 
     protected void EnterRoom(SocketIOEvent e)
@@ -103,14 +103,14 @@ public class Core : MonoBehaviour {
     {
         while (true)
         {
-            Thread.Sleep(100);
-
             if (PlayerId > 0 && Room > 0 )
             {
                 Dictionary<string, string> Data = new Dictionary<string, string>();
                 Data.Add("room", this.Room.ToString());
                 Socket.Emit("room_data", new JSONObject(Data));                
             }
+
+            Thread.Sleep(5);
         }
     }
 
@@ -126,13 +126,43 @@ public class Core : MonoBehaviour {
                 Object = Instantiate(Resources.Load(Obj.GetField("model").str)) as GameObject;
                 Object.name = Obj.GetField("name").str;
                 Object.tag = DefaultTag;
+                
+                switch(Obj.GetField("type").str)
+                {
+                    case "ball":
+                    {
+                            Object.AddComponent<Rigidbody>();
+                            Object.AddComponent<BoxCollider>();
+
+                            Object.transform.position = new Vector3(20, 50, 0);
+                            Object.transform.rotation = Quaternion.Euler(0, 90, 0);
+                            Object.GetComponent<Rigidbody>().MovePosition(Object.transform.position * Time.deltaTime);
+
+                            Object.GetComponent<Rigidbody>().mass = 60;
+                            break;
+                    }
+                    case "character":
+                    {
+                            Object.AddComponent<Rigidbody>();
+                            Object.AddComponent<BoxCollider>();
+
+                            Object.GetComponent<Rigidbody>().mass = 100;
+                            break;
+                    }
+                }
+
+                if (Object.name == this.PlayerName)
+                {
+                    GameObject.Find(PlayerName).AddComponent<Character>();
+                    GameObject.Find(PlayerName).GetComponent<Character>().Socket = this.Socket;
+                }
             }
 
             Vector3 Position = new Vector3(
                 Obj.GetField("position").GetField("x").f,
                 Obj.GetField("position").GetField("y").f,
                 Obj.GetField("position").GetField("z").f
-            );
+            );            
             Vector3 Rotation = new Vector3(
                 Obj.GetField("rotation").GetField("x").f,
                 Obj.GetField("rotation").GetField("y").f,
@@ -144,16 +174,31 @@ public class Core : MonoBehaviour {
                 Obj.GetField("scale").GetField("z").f
             );
 
-            Object.transform.position = Position;
-            Object.transform.localRotation = Quaternion.Euler(Rotation.x, Rotation.y, Rotation.z);
+            //Object.transform.position = Position;
+
+            //Object.GetComponent<Rigidbody>().MovePosition(Object.transform.position * Time.deltaTime);
+            //Object.transform.position = Object.GetComponent<Rigidbody>().position;
+            //Object.GetComponent<Rigidbody>().MoveRotation(Quaternion.Euler(Rotation.x, Rotation.y, Rotation.z));
+            //Object.transform.position = Position;
+            //Object.transform.rotation = Quaternion.Euler(Rotation.x, Rotation.y, Rotation.z);
             Object.transform.localScale = Scale;
+
+            if( Object.GetComponent<Character>() != null)
+            {
+                Dictionary<string, System.Object> CameraData = new Dictionary<string, System.Object>();
+                CameraData.Add("position", Position);
+                CameraData.Add("rotation", Rotation);
+                CameraData.Add("scale", Scale);
+
+                Object.GetComponent<Character>().CameraData = CameraData;                
+            }
         }
     }    
 
     void Awake()
     {
 		Application.runInBackground = true;
-        DontDestroyOnLoad(transform.gameObject);       
+        DontDestroyOnLoad(transform.gameObject);
     }
 
     void OnApplicationQuit()
@@ -180,15 +225,7 @@ public class Core : MonoBehaviour {
             Thread.Sleep(1000);
             --SecondsToStart;
         }
-    }
-
-    protected void Start(SocketIOEvent e)
-    {
-        JSONObject Json = e.data;
-        this.WFSThread = new Thread(WaitForStart);
-        this.SecondsToStart = (int)Json.GetField("seconds").f;
-        this.WFSThread.Start();
-    }
+    }    
 
     protected void End(SocketIOEvent e)
     {

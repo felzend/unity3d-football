@@ -1,41 +1,41 @@
 fileFormatVersion: 2
-guid: 8e58292a06edbd843bfd85fe3453715c
-timeCreated: 1492469250
+guid: 83013b7df7e4a5e4990211bb3929ce73
+timeCreated: 1492830533
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Camera
-    100004: Cube
-    100006: Cube.001
-    100008: Cube.002
-    100010: Cube.003
-    100012: Lamp
+    100002: Body
+    100004: Camera
+    100006: Cube
+    100008: Head
+    100010: Lamp
+    100012: Legs
     100014: Sun
     100016: Sun.001
     100018: Sun.002
     400000: //RootNode
-    400002: Camera
-    400004: Cube
-    400006: Cube.001
-    400008: Cube.002
-    400010: Cube.003
-    400012: Lamp
+    400002: Body
+    400004: Camera
+    400006: Cube
+    400008: Head
+    400010: Lamp
+    400012: Legs
     400014: Sun
     400016: Sun.001
     400018: Sun.002
-    2300000: Cube
-    2300002: Cube.001
-    2300004: Cube.002
-    2300006: Cube.003
-    3300000: Cube
-    3300002: Cube.001
-    3300004: Cube.002
-    3300006: Cube.003
-    4300000: Cube.003
-    4300002: Cube.002
-    4300004: Cube.001
+    2300000: Body
+    2300002: Cube
+    2300004: Head
+    2300006: Legs
+    3300000: Body
+    3300002: Cube
+    3300004: Head
+    3300006: Legs
+    4300000: Head
+    4300002: Body
+    4300004: Legs
     4300006: Cube
   materials:
     importMaterials: 1

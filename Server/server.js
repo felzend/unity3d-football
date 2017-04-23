@@ -27,16 +27,45 @@ http.listen(port, function (err) {
 
     rooms.push({
         id: 25,
-        models: 0, // Garantir que cada jogador vai ser diferente (0 ou 1) nos defaults
         gameTime: 0,
         capacity: 2,
         created_at: new Date().getTime(),
         players: [],
         ball: {
-
+            name: "Ball",
+            model: "Ball/ball",
+            type: "ball",
+            position: { x: 0, y: 0, z: 0 },
+            rotation: { x: 0, y: 2, z: 0 },
+            scale: { x: 1, y: 1, z: 1 },
+            defaults: {
+                position: {
+                    x: -5,
+                    y: 2,
+                    z: 0,
+                },
+                rotation: {
+                    x: 0,
+                    y: 0,
+                    z: 0,
+                },
+                scale: {
+                    x: 2,
+                    y: 2,
+                    z: 2,
+                }
+            }
         }
     });
 
+    /*setInterval(() => { // Teste Rotação
+        for(let a = 0 ; a < rooms[0].players.length; a++)
+        {
+            let player = rooms[0].players[a];
+            player.rotation.y += 1;
+        }
+
+    }, 50);*/
 });
 
 io.on('connection', function (socket) {
@@ -47,7 +76,7 @@ io.on('connection', function (socket) {
     player.socket = socket;
     console.log("Player " + socket.pid + " has connected.");
 
-    socket.emit('player_id', { player_id: socket.pid });
+    socket.emit('player_id', { player_id: player.id, player_name: player.name });
 
     socket.on('room_data', function (data) {
         var room = getRoom(parseInt(data.room));        
@@ -75,6 +104,15 @@ io.on('connection', function (socket) {
         roomData.entities.push(room.ball);
 
         this.emit('room_data', { data: roomData });
+    });
+
+    socket.on('move_player', function (data) {
+        var player = getPlayerFromRoom( parseInt(data.player), parseInt(data.room) );
+        if (player == null) return;
+
+        if (data.x != undefined) player.position.x = parseFloat(data.x);
+        if (data.y != undefined) player.position.y = parseFloat(data.y);
+        if (data.z != undefined) player.position.z = parseFloat(data.z);
     });
 
     socket.on('enter_room', function (data) {
@@ -115,6 +153,26 @@ var getRoom = function(id) {
     return null;
 }
 
+var getPlayerFromRoom = function (player, room) {
+    var Room = getRoom(room);
+    var Player = getPlayer(player);
+    if (Room == null) {
+        console.log("** Invalid room.");
+        return null;
+    }
+    if (Player == null) {
+        console.log("** Invalid player.");
+        return null;
+    }
+
+    for(let a = 0; a < Room.players.length; a++)
+    {
+        if( Room.players[a].id === player ) return Room.players[a];
+    }
+
+    return null;
+}
+
 var generatePlayer = function () {
     var id = random.integer(min, max);
     while (containsPlayer(id)) {
@@ -127,22 +185,22 @@ var generatePlayer = function () {
         room: null,        
         model: null,
         socket: null,
-        type: 'player',
+        type: 'character',
         standard: null,
         position: { x: 0, y: 0, z: 0 },
-        rotation: { x: 0, y: 0, z: 0 },
+        rotation: { x: 0, y: 2, z: 0 },
         scale: { x: 1, y: 1, z: 1 },
         
         defaults: {
             0: {
                 position: {
-                    x: 0,
-                    y: 2,
-                    z: 20,
+                    x: 20,
+                    y: 12,
+                    z: 0,
                 },
                 rotation: {
                     x: 0,
-                    y: 90,
+                    y: 270,
                     z: 0,
                 },
                 scale: {
@@ -153,13 +211,13 @@ var generatePlayer = function () {
             },
             1: {
                 position: {
-                    x: 0,
-                    y: 2,
-                    z: -20,
+                    x: -20,
+                    y: 12,
+                    z: 0,
                 },
                 rotation: {
                     x: 0,
-                    y: 270,
+                    y: 90,
                     z: 0,
                 },
                 scale: {
@@ -232,7 +290,7 @@ var enterRoom = function (player, room) {
     }
     if (Room.capacity === Room.players.length) {
         console.log("** Trying to enter on a full room ("+room+")");
-        Socket.emit('message', { message: "Room " + Room.id + " is full and you can't enter." });
+        Player.socket.emit('message', { message: "Room " + Room.id + " is full and you can't enter." });
         return;
     }
 
