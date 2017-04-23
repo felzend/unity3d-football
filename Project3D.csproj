@@ -75,6 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Resources\Script\Ball.cs" />
     <Compile Include="Assets\Resources\Script\Bleachers.cs" />
     <Compile Include="Assets\Resources\Script\Character.cs" />
     <Compile Include="Assets\Resources\Script\Core.cs" />

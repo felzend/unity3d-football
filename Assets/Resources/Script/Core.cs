@@ -110,13 +110,13 @@ public class Core : MonoBehaviour {
                 Socket.Emit("room_data", new JSONObject(Data));                
             }
 
-            Thread.Sleep(5);
+            Thread.Sleep(6);
         }
     }
 
     protected void RefreshGame(SocketIOEvent e)
     {
-        JSONObject Json = e.data.GetField("data");
+        JSONObject Json = e.data.GetField("data");        
 
         foreach(JSONObject Obj in Json.GetField("entities").list )
         {
@@ -127,16 +127,23 @@ public class Core : MonoBehaviour {
             {
                 Object = Instantiate(Resources.Load(Obj.GetField("model").str)) as GameObject;
                 Object.name = Obj.GetField("name").str;
-                Object.tag = DefaultTag;                
+                Object.tag = DefaultTag;               
 
                 switch (Obj.GetField("type").str)
                 {
                     case "ball":
                         {
                             Object.AddComponent<Rigidbody>();
-                            Object.AddComponent<BoxCollider>();
+                            Object.AddComponent<CapsuleCollider>();
 
-                            Object.GetComponent<Rigidbody>().mass = 60;
+                            Object.GetComponent<Rigidbody>().mass = 20;
+                            Object.GetComponent<CapsuleCollider>().center = new Vector3(0, 0.3f, 0.9f);
+                            Object.GetComponent<CapsuleCollider>().radius = 0.8f;
+                            Object.GetComponent<CapsuleCollider>().height = 0;
+
+                            Object.AddComponent<Ball>();
+                            Object.GetComponent<Ball>().Socket = this.Socket;
+
                             break;
                         }
                     case "character":
@@ -145,7 +152,11 @@ public class Core : MonoBehaviour {
                             Object.AddComponent<BoxCollider>();
 
                             Object.GetComponent<Rigidbody>().mass = 100;
-                            Object.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationY;
+                            Object.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+
+                            Object.GetComponent<BoxCollider>().center = new Vector3(-0.1832194f, 1.998269f, 0.3340735f);
+                            Object.GetComponent<BoxCollider>().size = new Vector3(1.988663f, 5.999579f, 2.019472f);
+
                             break;
                         }
                 }
@@ -173,11 +184,11 @@ public class Core : MonoBehaviour {
                     Obj.GetField("scale").GetField("z").f
                 );
 
-                Object.transform.position = SPosition;
-                Object.transform.rotation = Quaternion.Euler(SRotation.x, SRotation.y, SRotation.z);
-                Object.transform.localScale = SScale;
+                Debug.Log("Spawn " + Obj.GetField("type").str + ": " + SPosition);
 
-                Debug.Log(Object.transform.rotation.eulerAngles);
+                Object.GetComponent<Rigidbody>().position = SPosition;
+                Object.GetComponent<Rigidbody>().rotation = Quaternion.Euler(SRotation.x, SRotation.y, SRotation.z);
+                Object.transform.localScale = SScale;
             }
 
             if (Id != PlayerId)
@@ -198,8 +209,8 @@ public class Core : MonoBehaviour {
                     Obj.GetField("scale").GetField("z").f
                 );
 
-                Object.transform.position = Position;
-                Object.transform.rotation = Quaternion.Euler(Rotation.x, Rotation.y, Rotation.z);
+                Object.GetComponent<Rigidbody>().position = Position;
+                Object.GetComponent<Rigidbody>().rotation = Quaternion.Euler(Rotation.x, Rotation.y, Rotation.z);
                 Object.transform.localScale = Scale;
             }
         }

@@ -32,16 +32,18 @@ http.listen(port, function (err) {
         created_at: new Date().getTime(),
         players: [],
         ball: {
+            id: 50000,
             name: "Ball",
             model: "Ball/ball",
             type: "ball",
-            position: { x: 0, y: 0, z: 0 },
-            rotation: { x: 0, y: 2, z: 0 },
-            scale: { x: 1, y: 1, z: 1 },
+            spawned: true,
+            position: { x: 0, y: 32, z: 0 },
+            rotation: { x: 0, y: 0, z: 0 },
+            scale: { x: 2, y: 2, z: 2 },
             defaults: {
                 position: {
                     x: -5,
-                    y: 2,
+                    y: 32,
                     z: 0,
                 },
                 rotation: {
@@ -101,13 +103,13 @@ io.on('connection', function (socket) {
             });
         }
 
-        roomData.entities.push(room.ball);
+        if( room.ball.spawned ) roomData.entities.push(room.ball);
 
         this.emit('room_data', { data: roomData });
     });
 
     socket.on('update_player', function (data) {
-        var player = getPlayerFromRoom( parseInt(data.player), parseInt(data.room) );
+        var player = getPlayerFromRoom(parseInt(data.player), parseInt(data.room));
         if (player == null) return;
 
         var position = {
@@ -124,7 +126,27 @@ io.on('connection', function (socket) {
 
         player.position = position;
         player.rotation = rotation;
-    })
+    });
+
+    socket.on('update_ball', function (data) {
+        var room = getRoom(parseInt(data.room));
+        if (room == null) return;
+
+        var position = {
+            x: parseFloat(data.pos_x),
+            y: parseFloat(data.pos_y),
+            z: parseFloat(data.pos_z)
+        };
+
+        var rotation = {
+            x: parseFloat(data.rot_x),
+            y: parseFloat(data.rot_y),
+            z: parseFloat(data.rot_z)
+        }
+
+        room.ball.position = position;
+        room.ball.rotation = rotation;
+    });
 
     socket.on('move_player', function (data) {
         var player = getPlayerFromRoom( parseInt(data.player), parseInt(data.room) );
@@ -281,8 +303,26 @@ var deletePlayerFromRoom = function (id) {
     }
 }
 
-var deleteBallFromRoom = function (room) {
+var createBall = function (room) {
+    var room = getRoom(room);
+    if (room == null) return;
 
+    room.ball.position = room.ball.defaults.position;
+    room.ball.rotation = room.ball.defaults.rotation;
+    room.ball.scale = room.ball.defaults.scale;
+    room.ball.spawned = true;
+}
+
+var deleteBall = function (room) {
+    var room = getRoom(room);
+    if (room == null) return;
+
+    room.ball.spawned = false;
+
+    for (let a = 0; a < room.players.length; a++)
+    {
+        room.players[a].socket.emit('delete', { object: room.ball.name });
+    }
 }
 
 var roomContainsStandard = function(id, standard) {
@@ -328,7 +368,8 @@ var enterRoom = function (player, room) {
     Player.rotation = Player.defaults[standard].rotation;
     Player.scale = Player.defaults[standard].scale;
     Player.model = models[standard];
-    Room.players.push(Player);
+
+    Room.players.push(Player);    
 
     sendRoomMessage(room, Player.id + " has connected to your room (" + Player.room + ") - (" + Room.players.length + "/" + Room.capacity + ")");
 }

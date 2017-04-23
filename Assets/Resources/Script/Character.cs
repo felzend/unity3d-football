@@ -13,15 +13,18 @@ public class Character : MonoBehaviour {
     public Dictionary<string, System.Object> CameraData = new Dictionary<string, System.Object>();
 
     public float Speed = 0.6f;
+    public float RotationSpeed = 1.5f;
 
     private int Player;
     private int Room;
+    private Rigidbody Rb;
 
 	void Start () {
         GameCore = GameObject.Find("GameCore");
 
         this.Player = GameCore.GetComponent<Core>().PlayerId;
-        this.Room = GameCore.GetComponent<Core>().Room;                
+        this.Room = GameCore.GetComponent<Core>().Room;
+        this.Rb = gameObject.GetComponent<Rigidbody>();
 
         Camera = this.gameObject.transform.FindChild("Camera").gameObject;
         Camera.AddComponent<Camera>();
@@ -35,7 +38,7 @@ public class Character : MonoBehaviour {
 
     void Update()
     {
-        Movement();        
+        Movement();
 
         Dictionary<string, string> Data = new Dictionary<string, string>();
         Data.Add("player", Player.ToString());
@@ -56,55 +59,32 @@ public class Character : MonoBehaviour {
     {
         if (Input.GetKey(KeyCode.W))
         {
-
+            gameObject.transform.position = new Vector3((gameObject.transform.forward.x * Speed) + gameObject.transform.position.x, (gameObject.transform.forward.y * Speed) + gameObject.transform.position.y, (gameObject.transform.forward.z * Speed) + gameObject.transform.position.z);            
         }
 
         else if (Input.GetKey(KeyCode.S))
         {
-
+            gameObject.transform.position = new Vector3((gameObject.transform.forward.x * Speed * -1) + gameObject.transform.position.x, (gameObject.transform.forward.y * Speed * -1) + gameObject.transform.position.y, (gameObject.transform.forward.z * Speed * -1) + gameObject.transform.position.z);
         }
 
         else if (Input.GetKey(KeyCode.A))
         {
-
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, ( gameObject.transform.right.z * Speed * -1 ) + gameObject.transform.position.z);
         }
 
         else if (Input.GetKey(KeyCode.D))
         {
-
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, (gameObject.transform.right.z * Speed) + gameObject.transform.position.z);
         }
 
-        /*if (Input.GetKey(KeyCode.W))
+        if( Input.GetKey(KeyCode.LeftArrow) )
         {
-            gameObject.GetComponent<Rigidbody>().MovePosition(new Vector3(
-                gameObject.GetComponent<Rigidbody>().transform.forward.x * Speed,
-                gameObject.GetComponent<Rigidbody>().position.y,
-                gameObject.GetComponent<Rigidbody>().position.z
-            ));
-        }        
-        else if(Input.GetKey(KeyCode.S))
-        {
-            gameObject.GetComponent<Rigidbody>().MovePosition(new Vector3(
-                gameObject.GetComponent<Rigidbody>().transform.forward.x * Speed * -1,
-                gameObject.GetComponent<Rigidbody>().position.y,
-                gameObject.GetComponent<Rigidbody>().position.z
-            ));
+            gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.eulerAngles.x, gameObject.transform.rotation.eulerAngles.y + (RotationSpeed * -1), gameObject.transform.rotation.eulerAngles.z);
         }
-        else if(Input.GetKey(KeyCode.A))
+
+        else if (Input.GetKey(KeyCode.RightArrow))
         {
-            gameObject.GetComponent<Rigidbody>().MovePosition(new Vector3(
-                gameObject.GetComponent<Rigidbody>().position.x,
-                gameObject.GetComponent<Rigidbody>().position.y,
-                gameObject.GetComponent<Rigidbody>().transform.right.z * Speed * -1
-            ));
+            gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.eulerAngles.x, gameObject.transform.rotation.eulerAngles.y + (RotationSpeed), gameObject.transform.rotation.eulerAngles.z);
         }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            gameObject.GetComponent<Rigidbody>().MovePosition(new Vector3(
-                 gameObject.GetComponent<Rigidbody>().position.x,
-                 gameObject.GetComponent<Rigidbody>().position.y,
-                 gameObject.GetComponent<Rigidbody>().transform.right.z * Speed
-            ));
-        }*/
     }
 }
