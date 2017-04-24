@@ -1,97 +1,67 @@
 Initialize engine version: 5.5.2f1 (3829d7f588f3)
 GfxDevice: creating device client; threaded=1
 Direct3D:
-    Version:  Direct3D 11.0 [level 11.0]
-    Renderer: NVIDIA GeForce GTX 650 (ID=0xfc6)
-    Vendor:   NVIDIA
-    VRAM:     994 MB
-    Driver:   21.21.13.7653
+    Version:  Direct3D 11.0 [level 10.1]
+    Renderer: Intel(R) HD Graphics 3000 (ID=0x116)
+    Vendor:   Intel
+    VRAM:     848 MB
+    Driver:   9.17.10.4229
 Begin MonoManager ReloadAssembly
-Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
-Loading C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
-- Completed reload, in  0.134 seconds
-Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\System.dll (this message is harmless)
-Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\Mono.Security.dll (this message is harmless)
-desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+- Completed reload, in  0.588 seconds
+Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\System.dll (this message is harmless)
+Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\Mono.Security.dll (this message is harmless)
+desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
+XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 6.522047 ms
 Initialize engine version: 5.5.2f1 (3829d7f588f3)
 GfxDevice: creating device client; threaded=1
 Direct3D:
-    Version:  Direct3D 11.0 [level 11.0]
-    Renderer: NVIDIA GeForce GTX 650 (ID=0xfc6)
-    Vendor:   NVIDIA
-    VRAM:     994 MB
-    Driver:   21.21.13.7653
+    Version:  Direct3D 11.0 [level 10.1]
+    Renderer: Intel(R) HD Graphics 3000 (ID=0x116)
+    Vendor:   Intel
+    VRAM:     848 MB
+    Driver:   9.17.10.4229
 Begin MonoManager ReloadAssembly
-Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
-Loading C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
-- Completed reload, in  0.031 seconds
-Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\System.dll (this message is harmless)
-Platform assembly: C:\Users\FelipeS\Documents\Project3D\football_Data\Managed\Mono.Security.dll (this message is harmless)
-desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+- Completed reload, in  0.095 seconds
+Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\System.dll (this message is harmless)
+Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\Mono.Security.dll (this message is harmless)
+desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
+XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
 <RI> Initialized touch support.
-<RI> Initialized touch support.
-UnloadTime: 1.265312 ms
-UnloadTime: 1.323959 ms
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 1a00 -> priority: 1 
-4/23/2017 9:32:47 PM|Error|WebSocket.Send|A WebSocket connection isn't established.
+  Thread -> id: 668 -> priority: 1 
 Entered Room 25
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-8076 has connected to your room (25) - (1/2)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Spawn character: (-20.0, 5.0, 0.0)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Spawn ball: (0.0, 32.0, 0.0)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Setting up 1 worker threads for Enlighten.
-  Thread -> id: 2d44 -> priority: 1 
-4/23/2017 9:32:48 PM|Error|WebSocket.Send|A WebSocket connection isn't established.
-7822 has connected to your room (25) - (2/2)
- 
-(Filename: C:/buildslave/unity/build/artifactsEgentered dRcomoom/ru5i e/
-DebugBinedin:/suigdsna.ecpp tL/bui:d a51)fa
-c
-ts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-7822 has connected to your room (25) - (2/2)
- 
-(FilenamS:pawn cildslcvt/er: (2build/artifact5.0,nerated
-/c
-ommon/rme: C:/bueilgBsladings.ity/.cpp d/ine:if5c1)
-
-enerated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Spawn character: (-20.0, 2.0, 0.0)
+768 has connected to your room (25) - (1/2)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
@@ -99,11 +69,42 @@ Spawn character: (20.0, 5.0, 0.0)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Spawn ball: (0.0, 22.5, 0.0)
+Spawn ball: (0.0, 32.0, 0.0)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-7822 has disconnected from your room (25) - (1/2)
+UnloadTime: 4.862530 ms
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 11cc -> priority: 1 
+8175 has connected to your room (25) - (2/2)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Spawn character: (-20.0, 5.0, 0.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Entered Room 25
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+8175 has connected to your room (25) - (2/2)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Spawn character: (20.0, 2.0, 0.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Spawn character: (-20.0, 5.0, 0.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Spawn ball: (0.0, 2.0, 0.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+8175 has disconnected from your room (25) - (1/2)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 

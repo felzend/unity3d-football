@@ -1,7 +1,6 @@
 var http = require('http').Server();
 var io = require('socket.io')(http);
 var random = require("random-js")();
-
 var port = 3000;
 var min = 1;
 var max = 10000;
@@ -23,7 +22,7 @@ var models = [
 
 http.listen(port, function (err) {
     if (err) throw (err);
-    console.log("Successfully started server at", port);
+    console.log("Successfully started server at", port);    
 
     rooms.push({
         id: 25,
@@ -78,10 +77,20 @@ io.on('connection', function (socket) {
     player.socket = socket;
     console.log("Player " + socket.pid + " has connected.");
 
-    socket.emit('player_id', { player_id: player.id, player_name: player.name });
+    socket.on('player_id', function () {
+        this.emit('player_id', { player_id: player.id, player_name: player.name });
+    });
+
+    socket.on('is_pivot', function (data) {
+        var player = getPlayerFromRoom(parseInt(data.player), parseInt(data.room));
+
+        if (player == null) return;
+
+        this.emit('is_pivot', { is_pivot: player.pivot });
+    });
 
     socket.on('room_data', function (data) {
-        var room = getRoom(parseInt(data.room));
+        var room = getRoom(parseInt(data.room));        
         if (room == null) return;
 
         var roomData = { id: room.id, entities: [], gameTime: room.gameTime };
@@ -90,7 +99,7 @@ io.on('connection', function (socket) {
         {
             var player = room.players[a];
             roomData.entities.push({
-                id: player.id,
+                id: player.id,                
                 name: player.name,
                 room: player.room,
                 model: player.model,
@@ -130,6 +139,8 @@ io.on('connection', function (socket) {
 
     socket.on('update_ball', function (data) {
         var room = getRoom(parseInt(data.room));
+        var except_player = parseInt(data.except_player);
+
         if (room == null) return;
 
         var position = {
@@ -142,6 +153,18 @@ io.on('connection', function (socket) {
             x: parseFloat(data.rot_x),
             y: parseFloat(data.rot_y),
             z: parseFloat(data.rot_z)
+        }        
+
+        for(let a = 0; a < room.players.length; a++)
+        {
+            var player = room.players[a];
+            if (player.id == except_player) continue;
+            
+            player.socket.emit('update_ball', {
+                name: room.ball.name,
+                position: position,
+                rotation: rotation
+            });
         }
 
         room.ball.position = position;
@@ -289,7 +312,7 @@ var sendRoomMessage = function(room, message) {
     }
 }
 
-var deletePlayerFromRoom = function (id) {
+var deletePlayerFromRoom = function (id) { // Broadcast for deleting GameObject from Scene.
     var player = getPlayer(id);    
     if (player.room == null) {
         console.log("** Player " + player.id + " is not inside a room.");
@@ -361,6 +384,10 @@ var enterRoom = function (player, room) {
         standard = random.integer(0, Room.capacity - 1);
     }
 
+    if (Room.players.length == 0) {
+        Player.pivot = true;
+    }
+
     Player.room = room;
     Player.standard = standard;
     Player.socket.emit('enter_room', { room_id: room });
@@ -369,7 +396,7 @@ var enterRoom = function (player, room) {
     Player.scale = Player.defaults[standard].scale;
     Player.model = models[standard];
 
-    Room.players.push(Player);    
+    Room.players.push(Player);
 
     sendRoomMessage(room, Player.id + " has connected to your room (" + Player.room + ") - (" + Room.players.length + "/" + Room.capacity + ")");
 }
@@ -382,13 +409,20 @@ var exitRoom = function (id) {
     }
     
     var room = getRoom(player.room);
-    room.models--;
+
+    player.socket.emit('unset_pivot');
 
     for (let a = 0; a < room.players.length; a++)
     {
         if (room.players[a].id === id) {
             room.players.splice(a, 1);
-            deletePlayerFromRoom(player.id);
+
+            if (room.players.length > 0) { // Defines the New Pivot, if there are still players on the room.
+                var newPivot = random.integer(0, room.players.length - 1);
+                room.players[newPivot].pivot = true;
+                getPlayer(room.players[newPivot].id).socket.emit('update_pivot', { is_pivot: true });
+            }
+            deletePlayerFromRoom(player.id);            
             break;
         }
     }

@@ -14,6 +14,7 @@ public class Character : MonoBehaviour {
 
     public float Speed = 0.6f;
     public float RotationSpeed = 1.5f;
+    public bool IsPivot = false;
 
     private int Player;
     private int Room;
@@ -90,12 +91,6 @@ public class Character : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        GameObject Go = collision.gameObject;
-
-        if( Go.name.Equals("Ball"))
-        {
-            Debug.Log("Ball Collision");
-            this.gameObject.GetComponent<Rigidbody>().AddForce( new Vector3(0, 5f, 0), ForceMode.Impulse);
-        }
+        GameObject Go = collision.gameObject;        
     }
 }

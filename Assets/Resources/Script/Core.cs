@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using System;
 
 public class Core : MonoBehaviour {
 
@@ -13,8 +14,8 @@ public class Core : MonoBehaviour {
     public string DefaultTag = "game";
     public int SecondsToStart = 0;
 
-    public List<GameObject> Entities = new List<GameObject>();
-        
+    public List<GameObject> Entities = new List<GameObject>();    
+
     private Thread GameThread;
     
     void Start ()
@@ -22,8 +23,12 @@ public class Core : MonoBehaviour {
         Socket = GameObject.Find("SocketIO").GetComponent<SocketIOComponent>();
         Socket.On("player_id", RetrievePlayerId);
         Socket.On("room_data", RefreshGame);
+        Socket.On("update_ball", BallUpdate);
         Socket.On("enter_room", EnterRoom);
         Socket.On("exit_room", ExitRoom);
+
+        Socket.On("is_pivot", IsPivot);
+        Socket.On("update_pivot", IsPivot);
 
         Socket.On("delete", DeleteHandler);
         Socket.On("message", MessageHandler);
@@ -35,7 +40,7 @@ public class Core : MonoBehaviour {
         Socket.On("remove_object", RemoveObject);*/
 
         StartCoroutine(Connect());
-    }
+    }    
 
     IEnumerator Connect()
     {
@@ -49,6 +54,8 @@ public class Core : MonoBehaviour {
         Socket.Emit("player_id");
         yield return new WaitForSeconds(0.3f);
         Socket.Emit("enter_room", new JSONObject(Data));
+
+        Data.Add("player", PlayerId.ToString());        
     }
 
     protected void RetrievePlayerId(SocketIOEvent e)
@@ -88,6 +95,13 @@ public class Core : MonoBehaviour {
         }
     }
 
+    protected void IsPivot(SocketIOEvent e)
+    {        
+        GameObject Player = GameObject.Find(PlayerName);
+        bool Pivot = e.data.GetField("is_pivot").b;
+        Player.GetComponent<Character>().IsPivot = Pivot;
+    } 
+
     IEnumerator SocketHandler()
     {
         Dictionary<string, string> Room = new Dictionary<string, string>();
@@ -103,25 +117,29 @@ public class Core : MonoBehaviour {
     {
         while (true)
         {
+            Thread.Sleep(5);
+
             if (PlayerId > 0 && Room > 0 )
             {
                 Dictionary<string, string> Data = new Dictionary<string, string>();
                 Data.Add("room", this.Room.ToString());
-                Socket.Emit("room_data", new JSONObject(Data));                
+                Socket.Emit("room_data", new JSONObject(Data));
             }
-
-            Thread.Sleep(6);
         }
-    }
+    }  
 
     protected void RefreshGame(SocketIOEvent e)
     {
-        JSONObject Json = e.data.GetField("data");        
+        JSONObject Json = e.data.GetField("data");
+        GameObject Player = GameObject.Find(PlayerName);        
 
         foreach(JSONObject Obj in Json.GetField("entities").list )
         {
             GameObject Object = GameObject.Find(Obj.GetField("name").str);
+
+            // Object data.
             int Id = (int)Obj.GetField("id").f;
+            string Type = Obj.GetField("type").str;
 
             if (Object == null)
             {
@@ -129,7 +147,7 @@ public class Core : MonoBehaviour {
                 Object.name = Obj.GetField("name").str;
                 Object.tag = DefaultTag;               
 
-                switch (Obj.GetField("type").str)
+                switch (Type)
                 {
                     case "ball":
                         {
@@ -163,8 +181,14 @@ public class Core : MonoBehaviour {
 
                 if ( Id == PlayerId ) // Caso seja o personagem do Client, adiciona Script de Character.
                 {
+                    Dictionary<string, string> Data = new Dictionary<string, string>();
                     GameObject.Find(PlayerName).AddComponent<Character>();
                     GameObject.Find(PlayerName).GetComponent<Character>().Socket = this.Socket;
+
+                    Data.Add("player", PlayerId.ToString());
+                    Data.Add("room", Room.ToString());
+
+                    Socket.Emit("is_pivot", new JSONObject(Data));
                 }
 
                 // Spawn Point.
@@ -191,7 +215,7 @@ public class Core : MonoBehaviour {
                 Object.transform.localScale = SScale;
             }
 
-            if (Id != PlayerId)
+            if ( ( ! Type.Equals("ball") && PlayerId != Id ) || ( ! Player.GetComponent<Character>().IsPivot && PlayerId != Id ) )
             {
                 Vector3 Position = new Vector3(
                     Obj.GetField("position").GetField("x").f,
@@ -216,6 +240,26 @@ public class Core : MonoBehaviour {
         }
     }    
 
+    private void BallUpdate(SocketIOEvent e)
+    {
+        /*string ObjName = e.data.GetField("name").str;
+        GameObject Obj = GameObject.Find(ObjName);
+        if (Obj == null) return;
+
+        Vector3 Position = new Vector3(
+            e.data.GetField("position").GetField("x").f, 
+            e.data.GetField("position").GetField("y").f, 
+            e.data.GetField("position").GetField("z").f
+        );
+        Quaternion Rotation = Quaternion.Euler(
+            e.data.GetField("rotation").GetField("x").f,
+            e.data.GetField("rotation").GetField("y").f,
+            e.data.GetField("rotation").GetField("z").f
+        );
+
+        Obj.transform.position = Position;
+        Obj.transform.rotation = Rotation;*/
+    }
 
     void Awake()
     {
