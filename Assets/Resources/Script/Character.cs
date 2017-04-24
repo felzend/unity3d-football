@@ -87,4 +87,15 @@ public class Character : MonoBehaviour {
             gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.eulerAngles.x, gameObject.transform.rotation.eulerAngles.y + (RotationSpeed), gameObject.transform.rotation.eulerAngles.z);
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        GameObject Go = collision.gameObject;
+
+        if( Go.name.Equals("Ball"))
+        {
+            Debug.Log("Ball Collision");
+            this.gameObject.GetComponent<Rigidbody>().AddForce( new Vector3(0, 5f, 0), ForceMode.Impulse);
+        }
+    }
 }
