@@ -57,16 +57,7 @@ http.listen(port, function (err) {
                 }
             }
         }
-    });
-
-    /*setInterval(() => { // Teste Rotação
-        for(let a = 0 ; a < rooms[0].players.length; a++)
-        {
-            let player = rooms[0].players[a];
-            player.rotation.y += 1;
-        }
-
-    }, 50);*/
+    });   
 });
 
 io.on('connection', function (socket) {

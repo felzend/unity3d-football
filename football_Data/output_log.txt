@@ -17,7 +17,7 @@ Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\Unity
 Loading C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
 Loading C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
-- Completed reload, in  0.588 seconds
+- Completed reload, in  0.105 seconds
 Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\System.dll (this message is harmless)
 Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\Mono.Security.dll (this message is harmless)
@@ -25,8 +25,6 @@ desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
 XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
-<RI> Initialized touch support.
-UnloadTime: 6.522047 ms
 Initialize engine version: 5.5.2f1 (3829d7f588f3)
 GfxDevice: creating device client; threaded=1
 Direct3D:
@@ -46,7 +44,7 @@ Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\Unity
 Loading C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
 Loading C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
-- Completed reload, in  0.095 seconds
+- Completed reload, in  0.096 seconds
 Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\System.dll (this message is harmless)
 Platform assembly: C:\Users\FelipeS\Documents\JogoSd\football_Data\Managed\Mono.Security.dll (this message is harmless)
@@ -55,17 +53,20 @@ desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
 <RI> Initialized touch support.
+<RI> Initialized touch support.
+UnloadTime: 6.688043 ms
+UnloadTime: 6.182469 ms
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 668 -> priority: 1 
+  Thread -> id: 21b0 -> priority: 1 
 Entered Room 25
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-768 has connected to your room (25) - (1/2)
+4939 has connected to your room (25) - (1/2)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Spawn character: (20.0, 5.0, 0.0)
+Spawn character: (-20.0, 5.0, 0.0)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
@@ -73,14 +74,13 @@ Spawn ball: (0.0, 32.0, 0.0)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-UnloadTime: 4.862530 ms
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 11cc -> priority: 1 
-8175 has connected to your room (25) - (2/2)
+  Thread -> id: 7e0 -> priority: 1 
+3090 has connected to your room (25) - (2/2)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Spawn character: (-20.0, 5.0, 0.0)
+Spawn character: (20.0, 5.0, 0.0)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
@@ -88,23 +88,19 @@ Entered Room 25
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-8175 has connected to your room (25) - (2/2)
+3090 has connected to your room (25) - (2/2)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Spawn character: (20.0, 2.0, 0.0)
+Spawn character: (-20.0, 2.0, 0.0)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Spawn character: (-20.0, 5.0, 0.0)
+Spawn character: (20.0, 5.0, 0.0)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Spawn ball: (0.0, 2.0, 0.0)
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-8175 has disconnected from your room (25) - (1/2)
+Spawn ball: (0.0, 23.3, 0.0)
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
