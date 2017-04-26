@@ -40,6 +40,8 @@ public class Core : MonoBehaviour {
         Socket.On("remove_object", RemoveObject);*/
 
         StartCoroutine(Connect());
+
+        Debug.Log("Socket: "+Socket.IsConnected);
     }    
 
     IEnumerator Connect()
