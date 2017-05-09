@@ -91,6 +91,12 @@ public class Character : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        GameObject Go = collision.gameObject;        
+        GameObject Go = collision.gameObject;
+        if(Go.name.Equals("Ball"))
+        {
+            Debug.Log("Ball Force");
+            // Go.GetComponent<Rigidbody>().AddForce(Go.GetComponent<Rigidbody>().transform.up * 8000);
+            Go.GetComponent<Rigidbody>().AddForce(this.gameObject.GetComponent<Rigidbody>().transform.forward * 8000);
+        }
     }
 }

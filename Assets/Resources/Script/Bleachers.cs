@@ -11,6 +11,8 @@ public class Bleachers : MonoBehaviour {
 
         this.GetComponent<Rigidbody>().mass = 500;
         this.GetComponent<Rigidbody>().isKinematic = true;
+
+        this.GetComponent<BoxCollider>().size = new Vector3(50, 0, 5);
     }
 	
 	// Update is called once per frame
